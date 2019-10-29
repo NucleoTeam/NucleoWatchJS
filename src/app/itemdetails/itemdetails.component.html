@@ -1,0 +1,18 @@
+<div class="inner" fxFlex="100%" fxLayout="row">
+  <div>
+    <h3>Information for request: {{call.latest.root}}</h3>
+    <span *ngFor="let chain of displayChains(call.latest);  let i = index">
+          <i style="padding-left:2px;padding-right:2px;" *ngIf="i>0" class="fas fa-angle-right"></i> {{chain}}
+        </span>
+  </div>
+  <div fxFlex="auto" fxFlexAlign="center" style="text-align:right;margin-right:20px;font-size:25px">
+    {{call.latest.retries+1}} Attempt{{(call.latest.retries)? 's' : '' }}
+  </div>
+</div>
+<div fxFlex="100%" fxLayout="column">
+  <mat-paginator fxFlex="100%" style="border-radius:6px;margin-left:20px;margin-right:20px;margin-bottom:3px;" (page)="changedPage($event)" [length]="call.latest.retries+1"
+                 [pageSize]="1"
+                 [pageSizeOptions]="[1]">
+  </mat-paginator>
+  <app-stepdetails  fxFlex="100%" [steps]="call.attempts[attempt]" [attempt]="attempt" fxFlex="100%"></app-stepdetails>
+</div>

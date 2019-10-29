@@ -1,0 +1,7 @@
+<div fxFlexFill>
+  <ng-container>
+    <ng-container *ngFor="let callSet of execService.filtered()">
+      <app-listitem [call]="execService.data.all[callSet]"></app-listitem>
+    </ng-container>
+  </ng-container>
+</div>

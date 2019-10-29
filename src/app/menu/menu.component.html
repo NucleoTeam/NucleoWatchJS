@@ -1,0 +1,75 @@
+<hr/>
+<a class="rowLink" (click)="execService.clearFilter();slideVal=0" style="cursor: pointer;"><i class="fas fa-remove-format"></i> Clear all filters</a>
+<hr/>
+<h2>
+  Chains
+  <span *ngIf="execService.filters.chain">[ {{execService.filters.chain}} ]</span>
+  <a *ngIf="execService.filters.chain" style="cursor: pointer;" (click)="execService.filter('chain',execService.filters.chain);">
+    <i class="fas fa-trash-alt"></i>
+  </a>
+</h2>
+<div style="margin-left:20px;margin-right:20px;">
+  <mat-form-field style="width:100%;">
+    <mat-label>select.chain.here</mat-label>
+    <mat-select  [(ngModel)]="execService.filters.chain" name="car">
+      <mat-option *ngFor="let chain of execService.data.chains" [value]="chain">
+        {{chain}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<hr/>
+<h2>
+  Hostname
+  <span *ngIf="execService.filters.host">[ {{execService.filters.host}} ]</span>
+  <a *ngIf="execService.filters.host" style="cursor: pointer;" (click)="execService.filter('host',execService.filters.host);">
+    <i class="fas fa-trash-alt"></i>
+  </a>
+</h2>
+<div style="margin-left:20px;margin-right:20px;">
+  <mat-form-field style="width:100%;">
+    <mat-label>localhost</mat-label>
+    <mat-select  [(ngModel)]="execService.filters.host" name="car">
+      <mat-option *ngFor="let host of execService.data.hosts" [value]="host">
+        {{host}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<hr/>
+<h2>
+  IPs
+  <span *ngIf="execService.filters.ip">[ {{execService.filters.ip}} ]</span>
+  <a *ngIf="execService.filters.ip" style="cursor: pointer;" (click)="execService.filter('ip',execService.filters.ip);">
+    <i class="fas fa-trash-alt"></i>
+  </a>
+</h2>
+<div style="margin-left:20px;margin-right:20px;">
+  <mat-form-field style="width:100%;">
+    <mat-label>127.0.0.1</mat-label>
+    <mat-select  [(ngModel)]="execService.filters.ip" name="car">
+      <mat-option *ngFor="let ip of execService.data.ips" [value]="ip">
+        {{ip}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<hr/>
+<h2>Retries</h2>
+<div *ngFor="let retry of retries">
+  <a (click)="execService.filter('retries',retry)" class="rowLink {{(execService.filters.retries === retry)?'selected':''}}">
+    <i class="fas fa-retweet"></i>{{retry}} retries
+  </a>
+</div>
+<hr/>
+<h2>Status</h2>
+<div *ngFor="let status of statusKeys()">
+  <a (click)="execService.filter('status',status)" class="rowLink {{(execService.filters.status === status)?'selected':''}}">
+    <i class="{{statuses[status]}}"></i>{{status}} requests
+  </a>
+</div>
+<hr/>
+<h2>Execution Time <a *ngIf="execService.filters.time" style="cursor: pointer;" (click)="execService.filter('time',slideVal);slideVal=0"><i class="fas fa-trash-alt"></i></a> </h2>
+<div style="margin-left:20px;margin-right:20px;">
+  <mat-slider min="0" max="200" [(ngModel)]="slideVal" (change)="changed($event)" thumbLabel [displayWith]="formatLabel" step="1" style="width:100%;" tickInterval="auto" value="0"></mat-slider>
+</div>

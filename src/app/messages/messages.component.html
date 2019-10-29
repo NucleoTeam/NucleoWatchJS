@@ -1,0 +1,17 @@
+<div  fxLayout="column" fxLayout.xs="column"
+      fxFlexFill >
+  <mat-toolbar fxFlex="40px">
+    <span>Nucleo Watcher</span>
+    <span class="spacer"></span>
+    <mat-icon style="cursor:pointer;" (click)="execService.clear()" aria-hidden="false" aria-label="Delete">delete</mat-icon>
+  </mat-toolbar>
+  <div fxFlex="auto" fxLayout="row" fxLayout.xs="column">
+    <div fxFlex="400px" class="menu">
+      <app-menu></app-menu>
+    </div>
+    <div fxFlex="auto" class="listing-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

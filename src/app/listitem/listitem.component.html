@@ -1,0 +1,39 @@
+<div fxFlex="auto" fxLayout="column" class="row {{call.latest.status}}">
+  <div fxLayout="row" (click)="showMore=!showMore" style="cursor: pointer">
+    <div fxFlex="60px" style="font-size:35px;" class="rightbar" fxLayoutAlign="center">
+      <i *ngIf="call.latest.status=='complete'" fxFlexAlign="center" class="fas fa-link"></i>
+      <i *ngIf="call.latest.status=='incomplete'" fxFlexAlign="center" class="fas fa-unlink"></i>
+      <i *ngIf="call.latest.status=='timeout'" fxFlexAlign="center" class="far fa-clock"></i>
+      <i *ngIf="call.latest.status=='break'" fxFlexAlign="center" class="fas fa-hand-paper"></i>
+    </div>
+    <div fxFlex="280px" fxLayout="column" class="rightbar">
+      <div class="title" >
+        {{call.latest.root}}
+      </div>
+      <div>From {{call.latest.execution.host}}</div>
+      <div class="{{(call.latest.retries)?'bold':''}}">{{call.latest.retries}} Retries</div>
+    </div>
+    <div fxFlex="auto" fxLayout="column">
+      <div>
+        <span *ngFor="let chain of displayChains(call.latest);  let i = index">
+          <i style="padding-left:2px;padding-right:2px;" *ngIf="i>0" class="fas fa-angle-right"></i> {{chain}}
+        </span>
+      </div>
+      <div style="padding-top:5px;">
+        Took <b>{{call.latest.execution.total}}ms</b> to execute
+      </div>
+      <div style="padding-top:5px;">
+       Chains: {{call.latest.chainList.length}}
+      </div>
+    </div>
+    <div fxFlex="auto" fxFlexAlign="center" style="text-align:right;margin-right:20px;">
+      <div *ngIf="call.latest.chainBreak.breakChain">
+        {{call.latest.chainBreak.breakReasons}}
+      </div>
+      <div style="font-size:13px;font-weight: bold;">
+        Requested {{call.latest.execution.start|date:'MMMM dd, yyyy &nbsp; HH:mm:ss.sssZ'}}
+      </div>
+    </div>
+  </div>
+  <app-itemdetails [call]="call" *ngIf="showMore" class=" {{call.latest.status}}" fxLayout="column"></app-itemdetails>
+</div>
