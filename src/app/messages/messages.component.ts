@@ -11,7 +11,7 @@ import {ExecutionsService} from '../executions.service';
 export class MessagesComponent implements OnInit {
 
 
-  constructor(private rxStompService: RxStompService, private execService: ExecutionsService) { }
+  constructor(private rxStompService: RxStompService, public execService: ExecutionsService) { }
 
   ngOnInit() {
     this.rxStompService.watch('/topic/complete').subscribe((message: Message) => {

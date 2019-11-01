@@ -128,7 +128,6 @@ export class ExecutionsService {
   filtered() {
     const self = this;
     const totalFilters = Object.keys(self.filters).filter((x) => self.filters[x] !== undefined);
-    console.log(totalFilters);
     if (totalFilters.length === 0) {
       return Object.keys(self.data.all);
     }
@@ -189,6 +188,9 @@ export class ExecutionsService {
     }
     if (dataCall !== undefined) {
       this.data.all[dataCall.root].attempts[dataCall.retries].push(dataCall);
+      this.data.all[dataCall.root].attempts[dataCall.retries].sort((a, b) => {
+        return a.steps.length - b.steps.length;
+      });
     }
   }
   constructor() { }

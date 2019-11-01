@@ -8,7 +8,7 @@ import {ExecutionsService} from '../executions.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private execService: ExecutionsService) { }
+  constructor(public execService: ExecutionsService) { }
 
   retries = [0, 1, 2, 3, 4, 5];
   statuses = {

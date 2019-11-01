@@ -8,7 +8,7 @@ import {ExecutionsService} from '../executions.service';
 })
 export class ListingComponent implements OnInit {
 
-  constructor(private execService: ExecutionsService) { }
+  constructor(public execService: ExecutionsService) { }
 
 
   getObj(obj) {

@@ -1,20 +1,23 @@
-<div fxFlex="100%" fxLayout="column" style="margin-left:40px;margin-right:40px;">
+<div fxFlex="100%" fxLayout="column" style="margin-left:20px;margin-right:20px;">
   <h3>#{{(attempt+1)}} Attempt</h3>
-  <div fxFlex="100%" *ngFor="let step of steps; let idx = index">
-    <ng-container *ngIf="step.status === 'incomplete'">
+  <div fxFlex="100%" *ngFor="let call of steps; let idx = index">
+    <ng-container *ngIf="call.status === 'incomplete'">
       <a fxFlex="100%" fxLayout="rows" class="{{(selected === idx)? 'selected' : ''}}" (click)="select(idx)">
-        <span style="display:inline-block;">
-          <span style="text-align:center;margin:20px;display:inline-block;">
-            <i class="far fa-plus-square" style="font-size:35px;"></i><br/>
-            {{step.execution.host}}
+        <span style="display:inline-block;border:2px solid #cdd2ff;margin: 5px;">
+          <span style="text-align:center;margin:10px;display:inline-block;">
+            {{call.execution.host}}
           </span>
         </span>
-        <span *ngFor="let s of step.steps; let i = index" style="display:inline-block;">
-          <i style="font-size:30px;" class="fas fa-long-arrow-alt-right"></i>
-          <span style="text-align:center;margin:20px;display:inline-block;">
-            <i class="fas fa-desktop" style="font-size:25px;"></i><br/>
-            {{s.step}} ( <b>{{s.total}} ms</b> )<br/>
-            {{s.host}}
+        <span *ngFor="let s of reduce(call); let i = index" style="display:inline-block;border:2px solid #cdd2ff;margin: 3px;">
+          <span style="text-align:center;margin:10px;display:inline-block;min-width:130px;">
+            <ng-container *ngIf="s.chainPart">
+              {{s.chainPart.total}}ms of <b>{{s.time}}ms</b><br/>
+              <b>{{s.chainPart.step}}</b><i style="color:#6e6e6e">{{s.chain}}</i> <br/>
+              {{s.chainPart.host}}
+            </ng-container>
+            <ng-container *ngIf="!s.chainPart">
+              <i style="color:#6e6e6e">{{s.chain}}</i>
+            </ng-container>
           </span>
         </span>
       </a>
@@ -22,7 +25,7 @@
   </div>
   <div fxFlex="100%">
     <span style="background:white;display:block;padding:10px;margin-bottom:5px;margin-top:5px;">
-      <ngx-json-viewer style="width:100%;height:200px;" [json]="steps[selected].objects"></ngx-json-viewer>
+      <ngx-json-viewer style="width:100%;height:200px;overflow-y:scroll;" [json]="steps[selected].objects"></ngx-json-viewer>
     </span>
   </div>
 </div>
